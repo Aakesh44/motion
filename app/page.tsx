@@ -1,5 +1,5 @@
 import React from 'react';
-import { routes } from '@/config/routes';
+import { routes } from '@/lib/routes';
 import Link from 'next/link';
 
 const page = () => {
