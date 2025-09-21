@@ -6,7 +6,7 @@ export default function AppLayout({
     children: React.ReactNode;
 }) {
     return (
-        <main className="mx-auto p-4 pt-8 flex flex-col gap-4 items-center justify-center md:max-w-5xl">
+        <main className="relative mx-auto md:max-w-5xl. h-screen min-h-fit flex flex-col gap-4 items-center justify-center">
 
             <Nav/>
 

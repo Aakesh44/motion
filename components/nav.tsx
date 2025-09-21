@@ -1,51 +1,61 @@
 "use client";
 
 import { routes } from '@/lib/routes';
-import { CircleChevronLeft, CircleChevronRight } from 'lucide-react';
-import { usePathname, useRouter } from 'next/navigation';
-import React, { useEffect } from 'react';
-import { Button } from './ui/button';
-import useArrayNavigator from '@/hooks/useNavigateRoute';
+import { usePathname } from 'next/navigation';
+import React, { } from 'react';
+import {AnimatePresence, motion} from "motion/react"
+import NavButtons from './navButtons';
 
 const Nav = () => {
 
     const pathname = usePathname();
-    const router = useRouter();
 
     const curIndex = routes.findIndex((route) => route.path === pathname);
     
-    const {activeIndex, next, prev, hasPrev, hasNext} = useArrayNavigator(routes, curIndex);
-
-    const activeRoute = routes[activeIndex];
-
-    useEffect(() => {
-        const target = activeRoute?.path ?? routes[0]?.path;
-        if (!target) return;                        // no routes yet
-        if (target === pathname) return;            // already there, do nothing
-        router.push(target);                        // or router.replace(target)
-      }, [activeIndex, activeRoute?.path, pathname, router, routes]);
+    const activeRoute = routes[curIndex];
 
     if (!activeRoute) return null;
 
     const {name, description} = activeRoute;
 
     return (
-        <nav className='w-full h-12 px-5 glass flex items-center justify-between gap-5 rounded-md border border-border'>
+        <nav className='absolute top-4 left-1/2 -translate-x-1/2 z-20  w-full max-w-3xl h-12 px-5 glass flex items-center justify-between gap-5 rounded-md border border-border'>
 
-            <h1 className='text-xl font-semibold font-plus-jakarta-poppins'>
-                {name}
-            </h1>
+            <AnimatePresence mode='wait' initial={false}>
 
-            <p className='ml-auto text-sm font-medium font-mono'>{description}</p>
+                <motion.div 
+                    key={name}
+                    className='grow flex items-center justify-between'
+                    initial={{
+                        y: 14,
+                        opacity: 0,
+                    }}
+                    exit={{
+                        y: -14,
+                        opacity: 0,
+                    }}
+                    animate={{
+                        y: 0,
+                        opacity: 1,
+                    }}
+                    transition={{
+                        duration: 0.3,
+                        ease: "linear",
+                    }}
+                >
 
-            <div className='h-full flex items-center justify-center gap-2'>
-                <Button onClick={prev} variant="outline" size="icon" disabled={!hasPrev} className='rounded-full cursor-pointer'>
-                    <CircleChevronLeft className='text-ring'/>
-                </Button>
-                <Button onClick={next} variant="outline" size="icon" disabled={!hasNext} className='rounded-full cursor-pointer'>
-                    <CircleChevronRight className='text-ring'/>
-                </Button>
-            </div>
+                    <h1 className='text-xl font-semibold font-plus-jakarta-poppins'>
+                        {name}
+                    </h1>
+
+                    <p className='ml-auto text-sm font-medium font-mono'>{description}</p>
+
+                </motion.div>
+
+            </AnimatePresence>
+
+            <NavButtons/>
+
         </nav>
     );
 };
