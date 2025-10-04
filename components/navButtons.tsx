@@ -21,7 +21,7 @@ const NavButtons = () => {
         if (!target) return;                        // no routes yet
         if (target === pathname) return;            // already there, do nothing
         router.push(target);                        // or router.replace(target)
-      }, [activeIndex, activeRoute?.path, pathname, router, routes]);
+      }, [activeIndex, activeRoute?.path, pathname, router]);
 
     return (
         <div className='h-full flex items-center justify-center gap-2'>
@@ -31,7 +31,7 @@ const NavButtons = () => {
             <Button onClick={next} variant="outline" size="icon" disabled={!hasNext} className='rounded-full cursor-pointer'>
                 <CircleChevronRight className='text-ring'/>
             </Button>
-    </div>
+        </div>
     );
 };
 

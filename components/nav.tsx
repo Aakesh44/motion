@@ -27,19 +27,19 @@ const Nav = () => {
                     key={name}
                     className='grow flex items-center justify-between'
                     initial={{
-                        y: 14,
+                        // y: 14,
                         opacity: 0,
                     }}
                     exit={{
-                        y: -14,
+                        // y: -14,
                         opacity: 0,
                     }}
                     animate={{
-                        y: 0,
+                        // y: 0,
                         opacity: 1,
                     }}
                     transition={{
-                        duration: 0.3,
+                        duration: 0.2,
                         ease: "linear",
                     }}
                 >

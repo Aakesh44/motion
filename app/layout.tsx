@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import {poppins, plusJakartaSans, jost, mono} from "@/lib/fonts"
+import {poppins, plusJakartaSans, jost, mono} from "@/lib/fonts";
+import Providers from "@/components/providers";
 
 export const metadata: Metadata = {
   title: "Motion App",
@@ -16,8 +17,12 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${poppins.variable} ${plusJakartaSans.variable} ${jost.variable} ${mono.variable} dark bg-background text-foreground antialiased`}
+        suppressHydrationWarning
+        
       >
-        {children}
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );
